@@ -1,0 +1,5 @@
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\PokerLibrary\bin\Debug\PokerLibrary.dll
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\PokerLibrary\bin\Debug\PokerLibrary.pdb
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\PokerLibrary\obj\Debug\PokerLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\PokerLibrary\obj\Debug\PokerLibrary.dll
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\PokerLibrary\obj\Debug\PokerLibrary.pdb
