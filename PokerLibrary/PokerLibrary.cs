@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace PokerLibrary
 {
-    public struct Card
+    public class Card
     {
         private string Value { get; set; }
         private string Suit { get; set; }
@@ -37,7 +37,7 @@ namespace PokerLibrary
     public class Hand
     {
         private Card[] Cards { get; set; }
-        private int CardCount { get; set; }
+        public int CardCount { get; set; }
 
         public Hand()
         {
@@ -68,6 +68,11 @@ namespace PokerLibrary
             }
             return passed;
         }
+
+        public void wipeHand()
+        {
+            CardCount = 0;
+        }
     }
 
     public class Player
@@ -78,6 +83,7 @@ namespace PokerLibrary
         public Player(string name)
         {
             Name = name;
+            Hand = new Hand();
         }
         public Player(string name, Hand hand)
         {
