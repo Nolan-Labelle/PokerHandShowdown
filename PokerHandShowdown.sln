@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker Hand Showdown", "Poker Hand Showdown\Poker Hand Showdown.csproj", "{9DA9E05F-5818-4E99-A3AE-F76FBC4C097C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerHandShowdown", "Poker Hand Showdown\PokerHandShowdown.csproj", "{9DA9E05F-5818-4E99-A3AE-F76FBC4C097C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLibrary", "PokerLibrary\PokerLibrary.csproj", "{268C49E6-357F-4404-B71C-8BF5CBDB1ED8}"
 EndProject

@@ -1,8 +1,8 @@
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\bin\Debug\Poker Hand Showdown.exe.config
-C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\obj\Debug\Poker Hand Showdown.csprojResolveAssemblyReference.cache
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\bin\Debug\Poker Hand Showdown.exe
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\bin\Debug\Poker Hand Showdown.pdb
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\bin\Debug\PokerLibrary.dll
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\bin\Debug\PokerLibrary.pdb
+C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\obj\Debug\PokerHandShowdown.csprojResolveAssemblyReference.cache
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\obj\Debug\Poker Hand Showdown.exe
 C:\Users\Nolan\Desktop\iQmetrix Take Home Assignment\Poker Hand Showdown\Poker Hand Showdown\obj\Debug\Poker Hand Showdown.pdb
