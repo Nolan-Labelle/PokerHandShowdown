@@ -19,7 +19,7 @@ namespace Poker_Hand_Showdown
             bool retryInput = false;
             int playerCounter = 0;
 
-            Regex Regex = new Regex(@"([2-9]|10|J|Q|K|A)(S|H|D|C)");
+            Regex Regex = new Regex(@"(\s|^)([2-9]|10|J|Q|K|A)(S|H|D|C)(\s|$)");
             Match match;
 
             do
