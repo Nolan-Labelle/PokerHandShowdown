@@ -159,6 +159,7 @@ namespace PokerLibrary
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
                             .Skip(2)//ignore the first two that were looked at then sort by numeric value (in case there was a pair of low, but a higher single)
+                            .OrderByDescending(x => x.numericValue)
                             .ElementAt(timesCalled-1).numericValue;
             }
             else if (winType == WinType.ThreeOfAKind && timesCalled <= 2)
@@ -169,6 +170,7 @@ namespace PokerLibrary
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
                             .Skip(3)
+                            .OrderByDescending(x => x.numericValue)
                             .ElementAt(timesCalled-1).numericValue;
             }
             else

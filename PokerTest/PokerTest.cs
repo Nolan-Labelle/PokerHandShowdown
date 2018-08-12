@@ -230,17 +230,126 @@ namespace PokerTest
         }
 
         [TestMethod]
-        public void Test_HandHighCard()
+        public void Test_HandHighCardFlush()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("2H");
+            testCards[1] = new Card("3H");
+            testCards[2] = new Card("4H");
+            testCards[3] = new Card("5H");
+            testCards[4] = new Card("6H");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+            int expected = 6;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("JC");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("8C");
+            testCards[3] = new Card("3C");
+            testCards[4] = new Card("2C");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 11;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10S");
+            testCards[2] = new Card("4S");
+            testCards[3] = new Card("QS");
+            testCards[4] = new Card("2S");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 12;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+        }
+
+        [TestMethod]
+        public void Test_HandHighCardThreeOfAKind()
         {
             Deck deck = new Deck();
 
             Card[] testCards = new Card[5];
             testCards[0] = new Card("AS");
-            testCards[1] = new Card("KS");
-            testCards[2] = new Card("QS");
+            testCards[1] = new Card("AH");
+            testCards[2] = new Card("AC");
             testCards[3] = new Card("JS");
-            testCards[4] = new Card("10S");
-            //testCards[5] = new Card("9H");
+            testCards[4] = new Card("10D");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+            int expected = 14;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("JS");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("QD");
+            testCards[3] = new Card("QH");
+            testCards[4] = new Card("QS");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 12;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("4D");
+            testCards[3] = new Card("6C");
+            testCards[4] = new Card("6D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 6;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("10D");
+            testCards[3] = new Card("6C");
+            testCards[4] = new Card("10D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 10;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("KS");
+            testCards[1] = new Card("KH");
+            testCards[2] = new Card("QD");
+            testCards[3] = new Card("AC");
+            testCards[4] = new Card("KD");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 13;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+        }
+
+        [TestMethod]
+        public void Test_HandHighCardPair()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("AS");
+            testCards[1] = new Card("AD");
+            testCards[2] = new Card("QC");
+            testCards[3] = new Card("JS");
+            testCards[4] = new Card("10H");
 
             Hand hand = new Hand(testCards);
             hand.EvaluateHand();
@@ -251,12 +360,12 @@ namespace PokerTest
             testCards[0] = new Card("JS");
             testCards[1] = new Card("10C");
             testCards[2] = new Card("8D");
-            testCards[3] = new Card("3H");
-            testCards[4] = new Card("2S");
+            testCards[3] = new Card("QH");
+            testCards[4] = new Card("QS");
 
             hand = new Hand(testCards);
             hand.EvaluateHand();
-            expected = 11;
+            expected = 12;
 
             Assert.AreEqual(expected, hand.GetHighCard());
 
@@ -284,10 +393,10 @@ namespace PokerTest
 
             Assert.AreEqual(expected, hand.GetHighCard());
 
-            testCards[0] = new Card("KS");
-            testCards[1] = new Card("AH");
-            testCards[2] = new Card("AD");
-            testCards[3] = new Card("KC");
+            testCards[0] = new Card("QS");
+            testCards[1] = new Card("KH");
+            testCards[2] = new Card("7D");
+            testCards[3] = new Card("7C");
             testCards[4] = new Card("KD");
 
             hand = new Hand(testCards);
@@ -298,25 +407,22 @@ namespace PokerTest
         }
 
         [TestMethod]
-        public void Test_HandKicker()
+        public void Test_HandHighCardHigh()
         {
             Deck deck = new Deck();
 
             Card[] testCards = new Card[5];
-            testCards[0] = new Card("AS");
-            testCards[1] = new Card("KS");
-            testCards[2] = new Card("QS");
-            testCards[3] = new Card("JS");
-            testCards[4] = new Card("10S");
-            //testCards[5] = new Card("9H");
+            testCards[0] = new Card("2S");
+            testCards[1] = new Card("3H");
+            testCards[2] = new Card("4S");
+            testCards[3] = new Card("5C");
+            testCards[4] = new Card("6D");
 
             Hand hand = new Hand(testCards);
             hand.EvaluateHand();
+            int expected = 6;
 
-            Assert.AreEqual(13, hand.GetKicker(1));
-            Assert.AreEqual(12, hand.GetKicker(2));
-            Assert.AreEqual(11, hand.GetKicker(3));
-            Assert.AreEqual(10, hand.GetKicker(4));
+            Assert.AreEqual(expected, hand.GetHighCard());
 
             testCards[0] = new Card("JS");
             testCards[1] = new Card("10C");
@@ -326,11 +432,170 @@ namespace PokerTest
 
             hand = new Hand(testCards);
             hand.EvaluateHand();
+            expected = 11;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("4D");
+            testCards[3] = new Card("QC");
+            testCards[4] = new Card("2D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+            expected = 12;
+
+            Assert.AreEqual(expected, hand.GetHighCard());
+        }
+
+        [TestMethod]
+        public void Test_HandKickerFlush()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("2H");
+            testCards[1] = new Card("3H");
+            testCards[2] = new Card("4H");
+            testCards[3] = new Card("5H");
+            testCards[4] = new Card("6H");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(5, hand.GetKicker(1));
+            Assert.AreEqual(4, hand.GetKicker(2));
+            Assert.AreEqual(3, hand.GetKicker(3));
+            Assert.AreEqual(2, hand.GetKicker(4));
+
+            testCards[0] = new Card("JC");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("8C");
+            testCards[3] = new Card("3C");
+            testCards[4] = new Card("2C");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
 
             Assert.AreEqual(10, hand.GetKicker(1));
             Assert.AreEqual(8, hand.GetKicker(2));
             Assert.AreEqual(3, hand.GetKicker(3));
             Assert.AreEqual(2, hand.GetKicker(4));
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10S");
+            testCards[2] = new Card("4S");
+            testCards[3] = new Card("QS");
+            testCards[4] = new Card("2S");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(10, hand.GetKicker(1));
+            Assert.AreEqual(6, hand.GetKicker(2));
+            Assert.AreEqual(4, hand.GetKicker(3));
+            Assert.AreEqual(2, hand.GetKicker(4));
+        }
+
+        [TestMethod]
+        public void Test_HandKickerThreeOfAKind()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("AS");
+            testCards[1] = new Card("AH");
+            testCards[2] = new Card("AC");
+            testCards[3] = new Card("JS");
+            testCards[4] = new Card("10D");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(11, hand.GetKicker(1));
+            Assert.AreEqual(10, hand.GetKicker(2));
+
+            testCards[0] = new Card("JS");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("QD");
+            testCards[3] = new Card("QH");
+            testCards[4] = new Card("QS");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(11, hand.GetKicker(1));
+            Assert.AreEqual(10, hand.GetKicker(2));
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("4D");
+            testCards[3] = new Card("6C");
+            testCards[4] = new Card("6D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(10, hand.GetKicker(1));
+            Assert.AreEqual(4, hand.GetKicker(2));
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("10D");
+            testCards[3] = new Card("6C");
+            testCards[4] = new Card("10D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(6, hand.GetKicker(1));
+            Assert.AreEqual(6, hand.GetKicker(2));
+
+            testCards[0] = new Card("KS");
+            testCards[1] = new Card("KH");
+            testCards[2] = new Card("QD");
+            testCards[3] = new Card("AC");
+            testCards[4] = new Card("KD");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(14, hand.GetKicker(1));
+            Assert.AreEqual(12, hand.GetKicker(2));
+        }
+
+        [TestMethod]
+        public void Test_HandKickerPair()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("AS");
+            testCards[1] = new Card("AD");
+            testCards[2] = new Card("QC");
+            testCards[3] = new Card("JS");
+            testCards[4] = new Card("10H");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(12, hand.GetKicker(1));
+            Assert.AreEqual(11, hand.GetKicker(2));
+            Assert.AreEqual(10, hand.GetKicker(3));
+
+            testCards[0] = new Card("JS");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("8D");
+            testCards[3] = new Card("QH");
+            testCards[4] = new Card("QS");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(11, hand.GetKicker(1));
+            Assert.AreEqual(10, hand.GetKicker(2));
+            Assert.AreEqual(8, hand.GetKicker(3));
 
             testCards[0] = new Card("6S");
             testCards[1] = new Card("10H");
@@ -358,17 +623,67 @@ namespace PokerTest
             Assert.AreEqual(6, hand.GetKicker(2));
             Assert.AreEqual(4, hand.GetKicker(3));
 
-            testCards[0] = new Card("KS");
-            testCards[1] = new Card("AH");
-            testCards[2] = new Card("QD");
-            testCards[3] = new Card("KC");
+            testCards[0] = new Card("QS");
+            testCards[1] = new Card("KH");
+            testCards[2] = new Card("7D");
+            testCards[3] = new Card("7C");
             testCards[4] = new Card("KD");
 
             hand = new Hand(testCards);
             hand.EvaluateHand();
 
-            Assert.AreEqual(14, hand.GetKicker(1));
-            Assert.AreEqual(12, hand.GetKicker(2));
+            Assert.AreEqual(12, hand.GetKicker(1));
+            Assert.AreEqual(7, hand.GetKicker(2));
+            Assert.AreEqual(7, hand.GetKicker(3));
+        }
+
+        [TestMethod]
+        public void Test_HandKickerHigh()
+        {
+            Deck deck = new Deck();
+
+            Card[] testCards = new Card[5];
+            testCards[0] = new Card("2S");
+            testCards[1] = new Card("3H");
+            testCards[2] = new Card("4S");
+            testCards[3] = new Card("5C");
+            testCards[4] = new Card("6D");
+
+            Hand hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(5, hand.GetKicker(1));
+            Assert.AreEqual(4, hand.GetKicker(2));
+            Assert.AreEqual(3, hand.GetKicker(3));
+            Assert.AreEqual(2, hand.GetKicker(4));
+
+            testCards[0] = new Card("JS");
+            testCards[1] = new Card("10C");
+            testCards[2] = new Card("8D");
+            testCards[3] = new Card("3H");
+            testCards[4] = new Card("2S");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(10, hand.GetKicker(1));
+            Assert.AreEqual(8, hand.GetKicker(2));
+            Assert.AreEqual(3, hand.GetKicker(3));
+            Assert.AreEqual(2, hand.GetKicker(4));
+
+            testCards[0] = new Card("6S");
+            testCards[1] = new Card("10H");
+            testCards[2] = new Card("4D");
+            testCards[3] = new Card("QC");
+            testCards[4] = new Card("2D");
+
+            hand = new Hand(testCards);
+            hand.EvaluateHand();
+
+            Assert.AreEqual(10, hand.GetKicker(1));
+            Assert.AreEqual(6, hand.GetKicker(2));
+            Assert.AreEqual(4, hand.GetKicker(3));
+            Assert.AreEqual(2, hand.GetKicker(4));
         }
 
         [TestMethod]
