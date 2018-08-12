@@ -14,10 +14,35 @@ namespace PokerHandShowdown
 
         static void Main(string[] args)
         {
-            deck = new Deck();
-            List<Player> players = ReadInput();
+            bool playAgain = true;
 
-            //do other things
+            while (playAgain)
+            {
+                playAgain = false;
+                deck = new Deck();
+
+                List<Player> players = ReadInput();
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    players[i].hand.EvaluateHand();
+                }
+
+                //players = (List<Player>)players.OrderByDescending(x => x.hand.winType);
+
+                int howManyWin = players.OrderByDescending(x => x.hand.winType).GroupBy(x => x.hand.winType).FirstOrDefault().Count();
+
+                if(howManyWin < 2)
+                {
+                    //easy, only 1 wins.
+                    WinGame(players[0]);
+                }
+            }
+        }
+
+        private static void WinGame(Player player)
+        {
+            Console.WriteLine("Player {0} wins with a {1} in their hand of {2}", player.name, player.hand.winType.ToString(), player.hand.ToString());
         }
 
         private static List<Player> ReadInput()

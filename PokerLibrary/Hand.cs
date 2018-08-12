@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace PokerLibrary
 {
-    enum WinType
+    public enum WinType
     {
         HighCard,
         Pair,
         ThreeOfAKind,
         Flush
     }
+
     public class Hand
     {
         private Card[] cards { get; set; }
-        public int winType { get; set; } 
+        public WinType winType { get; set; } 
 
         public Hand()
         {                                              
@@ -78,6 +79,40 @@ namespace PokerLibrary
             string firstSuit = cards[0].suit;
 
             return cards.Skip(1).All(x => firstSuit.Equals(x.suit));
+        }
+
+        public void EvaluateHand()
+        {
+            if (IsFlush())
+            {
+                winType = WinType.Flush;
+            }
+            else
+            {
+                int highestMatches = cards.GroupBy(x => x.numericValue)
+                                    .OrderByDescending(x => x.Count())
+                                    .FirstOrDefault().Count();
+
+                switch (highestMatches)
+                {
+                    case 1:
+                        //no pair
+                        winType = WinType.HighCard;
+                        break;
+                    case 2:
+                        //1 pair
+                        winType = WinType.Pair;
+                        break;
+                    case 3:
+                        //3 of a kind
+                        winType = WinType.ThreeOfAKind;
+                        break;
+                    case 4:
+                        //4 of a kind (functionally the same)
+                        winType = WinType.ThreeOfAKind;
+                        break;
+                }
+            }
         }
     }
 }
