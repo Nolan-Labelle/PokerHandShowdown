@@ -24,40 +24,47 @@ namespace PokerHandShowdown
         {
             List<Player> players = new List<Player>();
 
-            Console.Write("Enter Player's Name: ");
+            // tell the user to press Enter when done
+            Console.WriteLine("Please enter a player's name, then enter a hand of 5 cards separated by a comma with the format #$, where the # is a value from 2 to 10 or J, Q, K, or A; and the $ is the suit, e.g 'S'pades, 'H'earts, 'D'iamonds, 'C'lubs.");
+            Console.WriteLine("When you are finished entering players, press enter when prompted for another player.");
+            Console.Write("Enter player's name: ");
             string playerName = Console.ReadLine();
             while (!string.IsNullOrWhiteSpace(playerName))
             {
                 playerName.Trim();
                 Player player = new Player(playerName);
 
-                Hand tempHand = null;
+                Hand hand = null;
 
                 while (!player.HasHand())
                 {
-                    Console.WriteLine("Please a Hand of '5' cards separated by a comma with the format #$, where the # is a value from 2-10, or J, Q, K, or A, and the $ is the Suit, 'S'pades, 'H'earts, 'D'iamonds, 'C'lubs.");
-                    string tempCardString = Console.ReadLine().ToUpper();
+                    Console.WriteLine("");
+                    string cardsString = Console.ReadLine().ToUpper();
 
-                    string[] tempCardArray = tempCardString.Split(',');
+                    string[] cards = cardsString.Split(',');
 
-                    if (tempCardArray.Length == 5)
+                    if (cards.Length == 5)
                     {
-                        tempHand = GenerateHand(tempCardArray);
+                        hand = GenerateHand(cards);
                     }
                     else
                     {
-                        Console.WriteLine("Not Enough/Too Many Cards.");
+                        Console.WriteLine("There must be 5 cards.");
                     }
 
-                    if (tempHand != null && tempHand.CheckHand(deck))
+                    if (hand != null && hand.IsValid(deck))
                     {
-                        player.SetHand(tempHand, deck);
+                        player.AssignHand(hand, deck);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid cards.");
                     }
                 }
-                Console.WriteLine("Player {0} With the hand {1} has been added.", player.name, player.hand.ToString());
+                Console.WriteLine("Player {0} with the hand {1} has been added.", player.name, player.hand.ToString());
                 players.Add(player);
 
-                Console.Write("Enter Player's Name: ");
+                Console.Write("Enter the next player's name: ");
                 playerName = Console.ReadLine();
             }
 

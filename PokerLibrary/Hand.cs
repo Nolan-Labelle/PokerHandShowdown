@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace PokerLibrary
 {
+    enum WinType
+    {
+        HighCard,
+        Pair,
+        ThreeOfAKind,
+        Flush
+    }
     public class Hand
     {
         private Card[] cards { get; set; }
+        public int winType { get; set; } 
 
         public Hand()
         {                                              
@@ -20,15 +28,15 @@ namespace PokerLibrary
             this.cards = cards;                                                                                                                
         }                                                                 
 
-        public bool CheckHand(Deck deck)
+        public bool IsValid(Deck deck)
         {
             bool passed = true;
 
-            for (int i = 0; i < cards.Length; i++)
+            foreach (var card in cards)
             {
-                if (cards[i] != null)
+                if (card != null)
                 {
-                    if (deck.CardUsed(cards[i]))
+                    if (deck.CardUsed(card))
                     {
                         passed = false;
                     }
@@ -40,11 +48,11 @@ namespace PokerLibrary
 
         public void DrawCards(Deck deck)
         {
-            for (int i = 0; i < cards.Length; i++)
+            foreach (var card in cards)
             {
-                if (cards[i] != null)
+                if(card != null)
                 {
-                    deck.UseCard(cards[i]);
+                    deck.UseCard(card);
                 }
             }
         }
@@ -63,6 +71,13 @@ namespace PokerLibrary
             }
 
             return returnString;
+        }
+
+        public bool IsFlush()
+        {
+            string firstSuit = cards[0].suit;
+
+            return cards.Skip(1).All(x => firstSuit.Equals(x.suit));
         }
     }
 }

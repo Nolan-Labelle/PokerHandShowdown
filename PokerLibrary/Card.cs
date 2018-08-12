@@ -10,9 +10,9 @@ namespace PokerLibrary
 {
     public class Card
     {
-        private string value { get; set; }
-        private string suit { get; set; }
-        public bool isValid { get; set; }
+        public int numericValue { get; }
+        public string displayName { get; }
+        public string suit { get; }
 
         public Card(string input)
         {
@@ -23,36 +23,45 @@ namespace PokerLibrary
 
             if (valueMatch.Success && suitMatch.Success)
             {
-                value = valueMatch.Value;
                 suit = suitMatch.Value;
+                displayName = valueMatch.Value + suitMatch.Value;
+
+                int value;
+                if (Int32.TryParse(valueMatch.Value, out value))
+                {
+                    numericValue = value;
+                }
+                else
+                {
+                    switch (valueMatch.Value)
+                    {
+                        case "J":
+                            numericValue = 11;
+                            break;
+                        case "Q":
+                            numericValue = 12;
+                            break;
+                        case "K":
+                            numericValue = 13;
+                            break;
+                        case "A":
+                            numericValue = 14;
+                            break;
+                    }
+                }
+
                 Console.WriteLine("Successfully parsed {0} into Value {1} and Suit {2}", input, value, suit);
-                isValid = true;
-            }
-            else
-            {
-                Console.WriteLine("Failed to parse {0}", input);
-                value = null;
-                suit = null;
-                isValid = false;
             }
         }
 
-        public bool Equals(Card card)
+        public int Compare(Card card)
         {
-            return (value.Equals(card.value) && suit.Equals(card.suit));
+            return numericValue - card.numericValue;
         }
 
         public override string ToString()
         {
-            if (value != null && suit != null)
-            {
-                return string.Format("{0}{1}", value, suit);
-            }
-            else
-            {
-                Console.WriteLine("Empty Card, so giving empty string.");
-                return "";
-            }
+            return displayName;
         }
     }
 }

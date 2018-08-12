@@ -23,7 +23,7 @@ namespace PokerLibrary
             this.hand = hand;
         }
 
-        public void SetHand(Hand hand, Deck deck)
+        public void AssignHand(Hand hand, Deck deck)
         {
             this.hand = hand;
             this.hand.DrawCards(deck);

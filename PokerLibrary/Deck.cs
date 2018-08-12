@@ -9,7 +9,7 @@ namespace PokerLibrary
     public class Deck
     {
         private bool[] cards { get; set; }
-        private Dictionary<string, int> mapping { get; set; }
+        private Dictionary<string, int> mapping { get; }
 
         public Deck()
         {
