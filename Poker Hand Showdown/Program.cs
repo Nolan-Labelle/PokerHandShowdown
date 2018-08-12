@@ -23,26 +23,81 @@ namespace PokerHandShowdown
 
                 List<Player> players = ReadInput();
 
-                for (int i = 0; i < players.Count; i++)
+                List<Player> winningPlayers = CalculateWinners(players);
+
+                if (winningPlayers.Count == 1)
                 {
-                    players[i].hand.EvaluateHand();
+                    Player player = winningPlayers[0];
+                    Console.WriteLine("Player {0} wins with a {1} in their hand of {2}", player.name, player.hand.winType.ToString(), player.hand.ToString());
+                }
+                else
+                {
+                    Console.Write("Players ");
+                    foreach (var player in winningPlayers)
+                    {
+                        Console.Write("{0}, ", player.name);
+                    }
+                    Console.WriteLine("win with a {0}.", winningPlayers[0].hand.winType.ToString());
                 }
 
-                //players = (List<Player>)players.OrderByDescending(x => x.hand.winType);
-
-                int howManyWin = players.OrderByDescending(x => x.hand.winType).GroupBy(x => x.hand.winType).FirstOrDefault().Count();
-
-                if(howManyWin < 2)
+                Console.Write("Play again? (Y/N): ");
+                if(Regex.Match(Console.ReadLine().ToUpper(), @"(^|\s+)Y(\s+|$)").Success)
                 {
-                    //easy, only 1 wins.
-                    WinGame(players[0]);
+                    playAgain = true;
                 }
             }
         }
 
-        private static void WinGame(Player player)
+        private static List<Player> CalculateWinners(List<Player> players)
         {
-            Console.WriteLine("Player {0} wins with a {1} in their hand of {2}", player.name, player.hand.winType.ToString(), player.hand.ToString());
+            for (int i = 0; i < players.Count; i++)
+            {
+                players[i].hand.EvaluateHand();
+            }
+
+            List<Player> winners = players.OrderByDescending(x => x.hand.winType)
+                                          .GroupBy(x => x.hand.winType)
+                                          .FirstOrDefault().ToList();
+
+            if (winners.Count == 1)
+            {
+                return players;
+            }
+
+            winners = winners.OrderByDescending(x => x.hand.GetHighCard())
+                             .GroupBy(x => x.hand.GetHighCard())
+                             .FirstOrDefault().ToList();
+
+            if (winners.Count == 1)
+            {
+                return players;
+            }
+
+            for(int i = 1; i < 5; i++)//because there are 5 cards to look at, and we already looked at the first one
+            {
+                winners = winners.OrderByDescending(x => x.hand.GetKicker(i))
+                             .GroupBy(x => x.hand.GetKicker(i))
+                             .FirstOrDefault().ToList();
+            }
+
+            return players;
+        }
+
+        private static void WinGame(List<Player> players)
+        {
+            if (players.Count == 1)
+            {
+                Player player = players[0];
+                Console.WriteLine("Player {0} wins with a {1} in their hand of {2}", player.name, player.hand.winType.ToString(), player.hand.ToString());
+            } else
+            {
+                Console.Write("Players ");
+                foreach (var player in players)
+                {
+                    Console.Write("{0}, ", player.name);
+                }
+                Console.Write("win with a {0}.", players[0].hand.winType.ToString());
+            }
         }
 
         private static List<Player> ReadInput()
