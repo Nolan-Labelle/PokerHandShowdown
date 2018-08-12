@@ -149,19 +149,23 @@ namespace PokerLibrary
             else if (winType == WinType.Pair && timesCalled <= 3)
             {
                 return cards.GroupBy(x => x.numericValue)
-                            .Where(x => x.Count() <= 1)
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
-                            .ElementAt(timesCalled).numericValue;
+                            .Skip(2)//ignore the first two that were looked at then sort by numeric value (in case there was a pair of low, but a higher single)
+                            .Take(3)
+                            .OrderByDescending(x => x.numericValue)
+                            .ElementAt(timesCalled-1).numericValue;
             }
             else if (winType == WinType.ThreeOfAKind && timesCalled <= 2)
             {
                 //redundant as no 2 people would have the same 3 of a kind, but good if wanting to expand to more decks.
                 return cards.GroupBy(x => x.numericValue)
-                            .Where(x => x.Count() <= 2)
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
-                            .ElementAt(timesCalled).numericValue;
+                            .Skip(3)
+                            .Take(2)
+                            .OrderByDescending(x => x.numericValue)
+                            .ElementAt(timesCalled-1).numericValue;
             }
             else
             {

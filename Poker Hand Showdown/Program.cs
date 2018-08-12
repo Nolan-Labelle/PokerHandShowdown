@@ -61,7 +61,7 @@ namespace PokerHandShowdown
 
             if (winners.Count == 1)
             {
-                return players;
+                return winners;
             }
 
             winners = winners.OrderByDescending(x => x.hand.GetHighCard())
@@ -70,7 +70,7 @@ namespace PokerHandShowdown
 
             if (winners.Count == 1)
             {
-                return players;
+                return winners;
             }
 
             for(int i = 1; i < 5; i++)//because there are 5 cards to look at, and we already looked at the first one
@@ -80,7 +80,7 @@ namespace PokerHandShowdown
                              .FirstOrDefault().ToList();
             }
 
-            return players;
+            return winners;
         }
 
         private static void WinGame(List<Player> players)
