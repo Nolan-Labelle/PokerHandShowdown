@@ -42,6 +42,10 @@ namespace PokerLibrary
                         passed = false;
                     }
                 }
+                else
+                {
+                    passed = false;
+                }
             }
 
             return passed;
@@ -72,13 +76,6 @@ namespace PokerLibrary
             }
 
             return returnString;
-        }
-
-        public bool IsFlush()
-        {
-            string firstSuit = cards[0].suit;
-
-            return cards.Skip(1).All(x => firstSuit.Equals(x.suit));
         }
 
         public void EvaluateHand()
@@ -115,6 +112,13 @@ namespace PokerLibrary
             }
         }
 
+        public bool IsFlush()
+        {
+            string firstSuit = cards[0].suit;
+
+            return cards.Skip(1).All(x => firstSuit.Equals(x.suit));
+        }
+
         public int GetHighCard()
         {
             if (winType == WinType.Flush || winType == WinType.HighCard)
@@ -124,14 +128,16 @@ namespace PokerLibrary
             }
             else if (winType == WinType.Pair)
             {
-                return cards.GroupBy(x => x.numericValue)
+                return cards.OrderByDescending(x => x.numericValue)
+                            .GroupBy(x => x.numericValue)
                             .Where(x => x.Count() > 1)
                             .OrderByDescending(x => x.Count())
                             .FirstOrDefault().ElementAt(0).numericValue;
             }
             else if (winType == WinType.ThreeOfAKind)
             {
-                return cards.GroupBy(x => x.numericValue)
+                return cards.OrderByDescending(x => x.numericValue)
+                            .GroupBy(x => x.numericValue)
                             .Where(x => x.Count() > 2)
                             .OrderByDescending(x => x.Count())
                             .FirstOrDefault().ElementAt(0).numericValue;
@@ -148,23 +154,21 @@ namespace PokerLibrary
             }
             else if (winType == WinType.Pair && timesCalled <= 3)
             {
-                return cards.GroupBy(x => x.numericValue)
+                return cards.OrderByDescending(x => x.numericValue)
+                            .GroupBy(x => x.numericValue)
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
                             .Skip(2)//ignore the first two that were looked at then sort by numeric value (in case there was a pair of low, but a higher single)
-                            .Take(3)
-                            .OrderByDescending(x => x.numericValue)
                             .ElementAt(timesCalled-1).numericValue;
             }
             else if (winType == WinType.ThreeOfAKind && timesCalled <= 2)
             {
                 //redundant as no 2 people would have the same 3 of a kind, but good if wanting to expand to more decks.
-                return cards.GroupBy(x => x.numericValue)
+                return cards.OrderByDescending(x => x.numericValue)
+                            .GroupBy(x => x.numericValue)
                             .OrderByDescending(x => x.Count())
                             .SelectMany(x => x)
                             .Skip(3)
-                            .Take(2)
-                            .OrderByDescending(x => x.numericValue)
                             .ElementAt(timesCalled-1).numericValue;
             }
             else
